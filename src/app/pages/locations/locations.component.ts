@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RickAndMortyService } from '../../services/rickAndMortyService';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-locations-page',
@@ -12,19 +12,35 @@ export class LocationsComponent implements OnInit {
   loading: boolean = true;
   selectedLocation: any = null;
   residents: any[] = [];
+  private currentResidentSubscription: Subscription | null = null;
 
   constructor(private rickAndMortyService: RickAndMortyService) {}
-// Funcion que se al iniciar la pagina, para cargar los datos de los personajes y obtener los datos de origen de cada personaje
+
   ngOnInit(): void {
-    this.rickAndMortyService.getLocations().subscribe((data: any) => {
-      this.locations = data.results;
-      console.log(this.locations);
-      this.loading = false;
+    this.loadLocations();
+  }
+
+  loadLocations(): void {
+    this.loading = true;
+    this.rickAndMortyService.getLocations().subscribe({
+      next: (data: any) => {
+        this.locations = data.results;
+        console.log(this.locations);
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error loading locations:', err);
+        this.loading = false;
+      }
     });
   }
-// Funcion que se ejecuta cuando se hace click en un episodio y se obtiene el id de personaje de la ubicacion desde la url, 
-// para en el forkjopin iterar todos los personajes de cada ubicacion
+
   onLocationClick(location: any): void {
+    // Si ya está cargando, no permitir otro clic
+    if (this.loading) {
+      return;
+    }
+
     this.selectedLocation = location;
     this.loading = true;
     const residentUrls = location.residents || [];
@@ -32,21 +48,37 @@ export class LocationsComponent implements OnInit {
       const id = url.split('/').pop();
       return id ? +id : null;
     }).filter((id: number | null): id is number => id !== null);
+
     if (residentIds.length === 0) {
       this.loading = false;
       this.residents = [];
       return;
     }
-    forkJoin<any[]>(residentIds.map((id: number) => this.rickAndMortyService.getCharacterById(id))).subscribe((data: any[]) => {
-      this.residents = data;
-      console.log(this.residents);
-      this.loading = false;
+
+    // Cancelar suscripción anterior si existe
+    if (this.currentResidentSubscription) {
+      this.currentResidentSubscription.unsubscribe();
+    }
+
+    // Realizar las nuevas solicitudes de residentes
+    this.currentResidentSubscription = forkJoin<any[]>(residentIds.map((id: number) =>
+      this.rickAndMortyService.getCharacterById(id)
+    )).subscribe({
+      next: (data: any[]) => {
+        this.residents = data;
+        console.log(this.residents);
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error loading residents:', err);
+        this.loading = false;
+      }
     });
   }
 
   closeLocationDetails(): void {
     this.selectedLocation = null;
     this.residents = [];
-    this.loading = false; // Reset loading state when closing details
+    this.loading = false; // Reseteo inmediato del estado de carga
   }
 }

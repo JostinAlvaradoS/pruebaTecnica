@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RickAndMortyService } from '../../services/rickAndMortyService';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-episodes-page',
@@ -12,39 +12,72 @@ export class EpisodesComponent implements OnInit {
   loading: boolean = true;
   selectedEpisode: any = null;
   characters: any[] = [];
+  private currentCharacterSubscription: Subscription | null = null;
 
   constructor(private rickAndMortyService: RickAndMortyService) {}
 
   ngOnInit(): void {
-    this.rickAndMortyService.getEpisodes().subscribe((data: any) => {
-      this.episodes = data.results;
-      console.log(this.episodes);
-      this.loading = false;
+    this.loadEpisodes();
+  }
+
+  loadEpisodes(): void {
+    this.loading = true;
+    this.rickAndMortyService.getEpisodes().subscribe({
+      next: (data: any) => {
+        this.episodes = data.results;
+        console.log(this.episodes);
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error loading episodes:', err);
+        this.loading = false;
+      }
     });
   }
-// Funcion que se ejecuta cuando se hace click en un episodio y se obtiene el id de personaje del episodio desde la url, 
-// para en el forkjopin iterar todos los personajes de cada episodio
+
   onEpisodeClick(episode: any): void {
+    // Si ya está cargando, no permitir otro clic
+    if (this.loading) {
+      return;
+    }
+
     this.selectedEpisode = episode;
     this.loading = true;
     const characterIds = episode.characters?.map((url: string) => {
       const id = url.split('/').pop();
       return id ? +id : null; 
     }).filter((id: null) => id !== null) || []; 
+
     if (characterIds.length === 0) {
       this.loading = false;
       this.characters = [];
       return;
     }
-    forkJoin<any[]>(characterIds.map((id: number) => this.rickAndMortyService.getCharacterById(id))).subscribe((data: any[]) => {
-      this.characters = data;
-      console.log(this.characters);
-      this.loading = false;
+
+    // Cancelar suscripción anterior si existe
+    if (this.currentCharacterSubscription) {
+      this.currentCharacterSubscription.unsubscribe();
+    }
+
+    // Realizar las nuevas solicitudes de personajes
+    this.currentCharacterSubscription = forkJoin<any[]>(characterIds.map((id: number) =>
+      this.rickAndMortyService.getCharacterById(id)
+    )).subscribe({
+      next: (data: any[]) => {
+        this.characters = data;
+        console.log(this.characters);
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error loading characters:', err);
+        this.loading = false;
+      }
     });
-  } 
+  }
 
   closeEpisodeDetails(): void {
     this.selectedEpisode = null;
     this.characters = [];
+    this.loading = false; // Reseteo inmediato del estado de carga
   }
 }
