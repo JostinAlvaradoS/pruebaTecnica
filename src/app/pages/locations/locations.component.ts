@@ -47,5 +47,6 @@ export class LocationsComponent implements OnInit {
   closeLocationDetails(): void {
     this.selectedLocation = null;
     this.residents = [];
+    this.loading = false; // Reset loading state when closing details
   }
 }
