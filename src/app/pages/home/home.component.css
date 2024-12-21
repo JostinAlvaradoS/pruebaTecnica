@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 80px); /* Adjust height to account for header */
+    height: calc(100vh - 80px); /* Ajustar altura para tener en cuenta el encabezado */
     background-color: transparent;
 }
 
@@ -59,4 +59,13 @@
     height: 200px;
     border-radius: 50%;
     border: 4px solid #00796b;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 24px;
+  color: white;
 }

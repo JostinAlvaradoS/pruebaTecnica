@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!isLoading">
   <div class="presentation-card">
     <h1>Prueba tecnica</h1>
     <h2>Jostin Enrique Alvarado Sarmiento</h2>
@@ -6,6 +6,10 @@
     <img src="https://i.ibb.co/T4C8Gbs/profile.jpg"
          alt="Profile Photo" class="profile-photo">
   </div>
+</div>
+
+<div class="loading" *ngIf="isLoading">
+  <p>Loading...</p>
 </div>
 
 <style>
