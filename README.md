@@ -7,14 +7,16 @@ Bienvenido a este proyecto creado con **Angular CLI 18.2.0**, **Node.js 20.9.0**
 
 ---
 
+⚡ Tecnologias utilizadas para el desarrollo del proyecto  
 ## 🛠 Requisitos previos
-
 Antes de comenzar, asegúrate de tener los siguientes programas instalados en tu sistema:
 
 - [**Node.js**](https://nodejs.org/) (versión 20.9.0)
 - [**npm**](https://www.npmjs.com/) (versión 10.9.2)
 - [**Angular CLI**](https://angular.io/cli) (versión 18.2.0)
 - [**Git**](https://git-scm.com/) (para control de versiones)
+
+## 🛠 Lenguajes y librerias (Estas se instalan junto a las dependencias del proyecto, no son prerequisitos)
 - [**TypeScript**]. Lenguaje de programación utilizado para escribir el código de la aplicación.
 - [**RxJS**] Librería para manejar programación reactiva.
 - [**HTML y CSS**] Para la estructura y el estilo de la aplicación.
