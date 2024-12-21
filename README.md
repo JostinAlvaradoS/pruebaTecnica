@@ -17,14 +17,38 @@ Para verificar las versiones de las herramientas, puedes ejecutar estos comandos
 
 ```bash
 node -v
+```
+```bash
 npm -v
+```
+```bash
 ng --version
+```
+```bash
 git --version
-
+```
 
 ⚡ Pasos para clonar y ejecutar el proyecto
 1️⃣ Clonar el repositorio
 Primero, clona el repositorio del proyecto usando Git:
 
+```bash
 git clone https://github.com/JostinAlvaradoS/pruebaTecnica.git
-
+```
+2️⃣ Navegar al directorio del proyecto
+Accede a la carpeta del proyecto recién clonado:
+```bash
+cd pruebaTecnica
+```
+3️⃣ Instalar las dependencias
+Una vez dentro de la carpeta del proyecto, instala todas las dependencias necesarias usando npm:
+```bash
+npm install
+```
+4️⃣ Compilar y ejecutar el proyecto
+Para compilar y ejecutar el servidor de desarrollo, usa el siguiente comando:
+```bash
+ng serve
+```
+Este comando compilará el proyecto y lo servirá en el servidor de desarrollo de Angular. La aplicación estará disponible en tu navegador en:
+http://localhost:4200/home
