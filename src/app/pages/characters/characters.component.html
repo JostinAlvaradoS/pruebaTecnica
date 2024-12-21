@@ -1,0 +1,36 @@
+<div class="filters">
+  <input type="text" placeholder="Search" [(ngModel)]="filters.search" (input)="applyFilters()">
+  <select [(ngModel)]="filters.status" (change)="applyFilters()">
+    <option value="">All Statuses</option>
+    <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+  </select>
+  <select [(ngModel)]="filters.species" (change)="applyFilters()">
+    <option value="">All Species</option>
+    <option *ngFor="let species of speciesOptions" [value]="species">{{ species }}</option>
+  </select>
+  <select [(ngModel)]="filters.gender" (change)="applyFilters()">
+    <option value="">All Genders</option>
+    <option *ngFor="let gender of genderOptions" [value]="gender">{{ gender }}</option>
+  </select>
+  <select [(ngModel)]="filters.origin" (change)="applyFilters()">
+    <option value="">All Origins</option>
+    <option *ngFor="let origin of originOptions" [value]="origin">{{ origin }}</option>
+  </select>
+  <button (click)="resetFilters()">Reset Filters</button>
+</div>
+
+<div class="characters-container" style="display: flex; justify-content: center; flex-wrap: wrap;">
+  <div *ngFor="let character of paginatedCharacters" class="character-card">
+    <p>Name: {{ character.name }}</p>
+    <p>Status: {{ character.status }}</p>
+    <p>Species: {{ character.species }}</p>
+    <p>Gender: {{ character.gender }}</p>
+    <p>Origin: {{ character.origin.name }}</p>
+    <img [src]="character.image" alt="{{ character.name }}">
+  </div>
+</div>
+
+<div class="pagination">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+  <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= filteredCharacters.length">Next</button>
+</div>

@@ -1,0 +1,26 @@
+<div *ngIf="loading" class="loading">Loading...</div>
+<div *ngIf="!loading">
+  <router-outlet></router-outlet>
+  <div [class.blurred]="selectedEpisode" class="episodes-list">
+    <div *ngFor="let episode of episodes" class="episode-card" (click)="onEpisodeClick(episode)">
+      <h3>{{ episode.name }}</h3>
+      <p>{{ episode.air_date }}</p>
+      <p>{{ episode.episode }}</p>
+      <div class="overlay">Click to view characters</div>
+    </div>
+  </div>
+  <div *ngIf="selectedEpisode" class="episode-overlay" (click)="closeEpisodeDetails()">
+    <div class="episode-details" (click)="$event.stopPropagation()">
+      <button class="close-button" (click)="closeEpisodeDetails()">X</button>
+      <h2>{{ selectedEpisode?.name }}</h2>
+      <p>{{ selectedEpisode?.air_date }}</p>
+      <p>{{ selectedEpisode?.episode }}</p>
+      <div class="characters-list">
+        <div *ngFor="let character of characters" class="character-card">
+          <img [src]="character?.image" alt="{{ character.name }}">
+          <p>{{ character.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

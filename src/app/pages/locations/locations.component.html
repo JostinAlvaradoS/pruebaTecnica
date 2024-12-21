@@ -1,0 +1,26 @@
+<div *ngIf="loading" class="loading">Loading...</div>
+<div *ngIf="!loading">
+  <router-outlet></router-outlet>
+  <div [class.blurred]="selectedLocation" class="locations-list">
+    <div *ngFor="let location of locations" class="location-card" (click)="onLocationClick(location)">
+      <h3>{{ location.name }}</h3>
+      <p>{{ location.dimension }}</p>
+      <p>{{ location.type }}</p>
+      <div class="overlay">Click to view residents</div>
+    </div>
+  </div>
+  <div *ngIf="selectedLocation" class="location-overlay" (click)="closeLocationDetails()">
+    <div class="location-details" (click)="$event.stopPropagation()">
+      <button class="close-button" (click)="closeLocationDetails()">X</button>
+      <h2>{{ selectedLocation?.name }}</h2>
+      <p>{{ selectedLocation?.dimension }}</p>
+      <p>{{ selectedLocation?.type }}</p>
+      <div class="residents-list">
+        <div *ngFor="let resident of residents" class="resident-card">
+          <img [src]="resident?.image" alt="{{ resident.name }}">
+          <p>{{ resident.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

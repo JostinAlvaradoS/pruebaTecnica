@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header {
+    flex: 0 1 auto;
+}
+
+.content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.outlet {
+    flex: 1 1 auto;
+}
