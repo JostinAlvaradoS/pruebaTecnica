@@ -12,6 +12,9 @@ Antes de comenzar, asegúrate de tener los siguientes programas instalados en tu
 - [**npm**](https://www.npmjs.com/) (versión 10.9.2)
 - [**Angular CLI**](https://angular.io/cli) (versión 18.2.0)
 - [**Git**](https://git-scm.com/) (para control de versiones)
+- [**TypeScript**]. Lenguaje de programación utilizado para escribir el código de la aplicación.
+- [**RxJS**] Librería para manejar programación reactiva.
+- [**HTML y CSS**] Para la estructura y el estilo de la aplicación.
 
 Para verificar las versiones de las herramientas, puedes ejecutar estos comandos en tu terminal:
 
@@ -52,3 +55,12 @@ ng serve
 ```
 Este comando compilará el proyecto y lo servirá en el servidor de desarrollo de Angular. La aplicación estará disponible en tu navegador en:
 http://localhost:4200/home
+
+
+⚡ Enlace al Proyecto Publicado en GitHub Pages
+Puedes ver la aplicación en funcionamiento en el siguiente enlace: 
+https://jostinalvarados.github.io/pruebaTecnica/home
+
+⚡ Desafíos Enfrentados y solución
+- **Diseño Responsivo**: Asegurar que la aplicación se vea bien en diferentes dispositivos fue un reto. Se utilizó CSS y Flexbox para crear un diseño responsivo.
+
