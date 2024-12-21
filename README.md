@@ -1,4 +1,7 @@
-# 🚀 Proyecto Angular
+# 🚀 Prueba técnica INTERMARK
+Este proyecto fue desarrollado con el objetivo de que la empresa Intermark pudiera evaluar mis conocimientos en desarrollo frontend. Para este fin, se utilizó la API pública de Rick and Morty, lo que permitió omitir la necesidad de encriptar una API key o emplear variables de entorno. El componente services es el encargado de establecer la conexión con la API y realizar las consultas necesarias para el funcionamiento del proyecto.
+
+Dentro del proyecto, se gestionan los estados de las peticiones, se aplican propiedades CSS como animaciones, hover, active y media queries para garantizar la adaptabilidad a diferentes tamaños de pantalla. Aunque el diseño visual no es el foco principal de este proyecto, se ha puesto especial énfasis en la robustez del sistema para asegurar un funcionamiento óptimo y demostrar mis habilidades en este ámbito.
 
 Bienvenido a este proyecto creado con **Angular CLI 18.2.0**, **Node.js 20.9.0**, **npm 10.9.2**, y **Git** como herramienta de control de versiones. Sigue los pasos a continuación para **clonar**, **instalar las dependencias**, **compilar** y **ejecutar** el proyecto en tu entorno local.
 
