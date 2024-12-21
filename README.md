@@ -28,7 +28,7 @@ ng --version
 git --version
 ```
 
-⚡ Pasos para clonar y ejecutar el proyecto
+⚡ Pasos para clonar y ejecutar el proyecto  
 1️⃣ Clonar el repositorio
 Primero, clona el repositorio del proyecto usando Git:
 
